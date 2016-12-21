@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <name>inBox</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.kmware.insystem</groupId>
+    <artifactId>inBox</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>ejb</module>
+        <module>web</module>
+        <module>ear</module>
+    </modules>
+
+    <properties>
+        <!-- Explicitly declaring the source encoding eliminates the following message: -->
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+            resources, i.e. build is platform dependent! -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Hibernate packages versions -->
+        <version.org.hibernate>4.1.9.Final</version.org.hibernate>
+        <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
+        <version.org.hibernate-jpa>1.0.1.Final</version.org.hibernate-jpa>
+        <version.org.hibernate-jpamodelgen>1.2.0.Final</version.org.hibernate-jpamodelgen>
+
+        <cdi.api.version>1.0-SP4</cdi.api.version>
+        <jpa.api.version>1.0.1.Final</jpa.api.version>
+
+		<version.commons.lang3>3.1</version.commons.lang3>
+        
+        <version.junit>4.10</version.junit>
+        <version.org.jboss.arquillian>1.0.0.Final</version.org.jboss.arquillian>
+
+        <!-- plugin versions -->
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.compiler.plugin>2.3.2</version.compiler.plugin>
+        <version.ear.plugin>2.8</version.ear.plugin>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
+        <version.surefire.plugin>2.10</version.surefire.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Define the version of the EJB jar so that we don't need 
+                to repeat ourselves in every module -->
+            <dependency>
+                <groupId>com.kmware.insystem</groupId>
+                <artifactId>inBox-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            
+            <!-- Define the version of the WAR so that we don't need to repeat 
+                ourselves in every module -->
+            <dependency>
+                <groupId>com.kmware.insystem</groupId>
+                <artifactId>inBox-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- Java(TM) EE 6 Specification APIs --> 
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>6.0</version>
+            </dependency>
+
+            <!-- Hibernate ORM sub-modules -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${version.org.hibernate}</version>
+                <!-- this already part of JDK6 -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${version.org.hibernate}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${version.org.hibernate.validator}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>${version.org.hibernate-jpa}</version>
+            </dependency>
+
+            <!-- Hibernate Tools -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator-annotation-processor</artifactId>
+                <version>${version.org.hibernate.validator}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${version.org.hibernate-jpamodelgen}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.15</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.jmx</groupId>
+                        <artifactId>jmxri</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.jdmk</groupId>
+                        <artifactId>jmxtools</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.jms</groupId>
+                        <artifactId>jms</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+
+            <!-- Test scope dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+            </dependency>
+
+            <!-- Arquillian lets test you your applications in real environment -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.org.jboss.arquillian}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Compiler plugin enforces Java 1.6 compatibility and 
+                    activates annotation processors -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+                <!-- The JBoss AS plugin deploys your ear to a local JBoss 
+                    AS container -->
+                <!-- Due to Maven's lack of intelligence with EARs we need 
+                    to configure the jboss-as maven plugin to skip deployment for all modules. 
+                    We then enable it specifically in the ear module. -->
+                <plugin>
+                    <groupId>org.jboss.as.plugins</groupId>
+                    <artifactId>jboss-as-maven-plugin</artifactId>
+                    <version>${version.jboss.maven.plugin}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing
+                remote server calls -->
+            <!-- releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots-->
+        </repository>
+
+        <!-- Primefaces public repository -->
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+
+        <!-- Openfaces public repository -->
+        <repository>
+            <id>org.openfaces</id>
+            <url>http://repository.openfaces.org/repository</url>
+        </repository>
+        <repository>
+            <id>jfree</id>
+            <url>http://www.ibiblio.org/maven/jfree/</url>
+        </repository>
+
+    </repositories>
+</project>

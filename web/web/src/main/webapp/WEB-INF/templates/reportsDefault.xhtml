@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:define name="header">
+            <h2>#{msgs.reports}</h2>
+        </ui:define>
+        <ui:define name="applicationLeftMenu">
+            <nav class="twocol alpha" id="section-nav">
+                <ul>
+                    <li>
+                        <span> <a href="#{request.contextPath}/reports/eventLogReport.jsf">#{reportmsgs['report.event.log']}</a></span><hr />
+                    </li>
+                    <li>
+                        <span> <a href="#{request.contextPath}/reports/excEventLogReport.jsf">#{reportmsgs['report.event.exception.log']}</a></span><hr />
+                    </li>
+                </ul>
+            </nav>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/eventlogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{eventmsgs.list}</h2>
+    </ui:define>
+    <ui:define name="content">
+    <f:event listener="#{eventLogBean.restoreState}" type="preRenderView"/>
+    <f:event listener="#{eventLogBean.processUrlParameters}" type="preRenderView"/>
+        <f:metadata>
+        </f:metadata>
+        <h:outputText value="&#160;" />
+        <br />
+        <h:outputScript library="javascript" name="globalfilter.js" />
+        <h:form id="ext-list-form" class="def-form">
+            <p:fieldset legend="#{eventmsgs['extfilter.title']}" toggleable="true" collapsed="true">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="shortlabel,short">
+                    <h:outputLabel value="#{eventmsgs['extfilter.date.from']}" />
+                    <p:calendar locale="ru" showButtonPanel="true" value="#{eventLogBean.filterManager.dateFrom}" 
+                        navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true"/>
+                    <h:outputLabel value="#{eventmsgs['extfilter.date.to']}" />
+                    <p:calendar locale="ru" showButtonPanel="true" value="#{eventLogBean.filterManager.dateTo}"
+                        navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true" />
+                    <h:outputLabel value="#{eventmsgs['entity.organization']}" />
+                    <h:selectOneMenu id="cities" value="#{eventLogBean.filterManager.organizationId}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                            itemValue="" />
+                        <f:selectItems value="#{eventLogBean.filterManager.organizations}" var="item"
+                            itemLabel="#{item.name}" itemValue="#{item.id}" />
+                        <p:ajax event="change" listener="#{eventLogBean.filterManager.organizationSelected}" process="@this" partialSubmit="true"
+                            update="devices"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{eventmsgs['entity.device_number']}" />
+                    <h:selectOneMenu id="devices" value="#{eventLogBean.filterManager.deviceId}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                            itemValue="" />
+                        <f:selectItems value="#{eventLogBean.filterManager.devices}"
+                            var="item" itemLabel="#{item.deviceNumber}" itemValue="#{item.id}" />
+                        <p:ajax event="change" listener="#{eventLogBean.filterManager.deviceSelected}" process="@this" partialSubmit="true"
+                            update="directions"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel  value="#{eventmsgs['entity.direction']}" />
+                    <h:selectOneMenu id="directions" value="#{eventLogBean.filterManager.directionId}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                            itemValue="" />
+                        <f:selectItems value="#{eventLogBean.filterManager.directions}" var="item"
+                            itemLabel="#{item.name}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{eventmsgs['entity.card_number']}" />
+                    <h:selectOneMenu id="cardholders" value="#{eventLogBean.filterManager.cardHolderId}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                            itemValue="" />
+                        <f:selectItems value="#{eventLogBean.filterManager.cardHolders}"
+                            var="item" itemLabel="#{item.cardNumber}" itemValue="#{item.id}" />
+					</h:selectOneMenu>
+                </h:panelGrid>
+<!--                 <p:commandButton id="searchButton"
+                    value="#{eventmsgs['extfilter.apply']}" 
+                    onstart="$($('.ui-paginator')[0]).find('.ui-paginator-first').trigger('click')"
+                    oncomplete="globalFilter.focusElement('ext-list-form:globalFilter')"
+                    actionListener="#{eventLogBean.doFiltering}"
+                    update="list">
+                </p:commandButton>
+                <p:commandButton value="#{eventmsgs['extfilter.reset']}"
+                    actionListener="#{eventLogBean.resetFilter}"
+                    update="ext-list-form" >  
+                </p:commandButton> -->
+            </p:fieldset>
+            <h:panelGrid id="global-grid"
+                styleClass="panelGridTwoCol globalFilter2" columns="4"
+                columnClasses="shortlabel,short">
+                <p:watermark value="#{msgs['global.filter']}" for="globalFilter" />
+                <h:inputText value="#{eventLogBean.filterManager.global}"
+                    id="globalFilter" style="width:150px" />
+                <p:commandButton id="searchButton" value="#{eventmsgs['extfilter.apply']}" 
+                    onstart="$($('.ui-paginator')[0]).find('.ui-paginator-first').trigger('click')"
+                    oncomplete="globalFilter.focusElement('ext-list-form:globalFilter')"
+                    actionListener="#{eventLogBean.doFiltering}" update="list" >
+                </p:commandButton>
+                <p:commandButton value="#{eventmsgs['extfilter.reset']}" 
+                    actionListener="#{eventLogBean.resetFilter}" update="ext-list-form" >
+                </p:commandButton>
+            </h:panelGrid>
+            <script type="text/javascript">
+                globalFilter.init('#ext-list-form\\:globalFilter','#ext-list-form\\:searchButton',900);
+            </script>
+
+        <!-- /h:form>
+        <h:form id="list-form"-->
+            <p:dataTable id="list" widgetVar="listTable" styleClass="list"
+                value="#{eventLogBean.filterManager.model}" var="item"
+                emptyMessage="#{msgs['no.data']}" paginator="true" rows="15"  
+                lazy="true" pageLinks="10" 
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="(#{msgs.page}: {currentPage} #{msgs.of} {totalPages})"
+                rowsPerPageTemplate="5,10,15,25,50">
+
+                <p:column sortBy="#{item.createDate}" width="70" styleClass="wrap"
+                    filterBy="#{item.createDate}" filterStyle="display:none;"
+                    headerText="#{eventmsgs['entity.event_date']}">
+                    <h:outputText value="#{item.createDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column sortBy="#{item.cardHolder.cardNumber}" width="70" styleClass="wrap"
+                    filterBy="#{item.cardHolder.cardNumber}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{eventmsgs['entity.card_number']}" />
+                    </f:facet>
+                    <h:outputLink value="view.jsf">
+                        <f:param name="id" value="#{item.id}" />
+                        <h:outputText value="#{item.cardHolder.cardNumber}" style="text-decoration: underline" />
+                    </h:outputLink>
+                </p:column>
+
+               <p:column sortBy="#{item.cardHolder.lastName}" width="70" styleClass="wrap"
+                   filterBy="#{item.cardHolder.lastName}" filterStyle="display:none;">
+                   <f:facet name="header">
+                       <h:outputText value="#{eventmsgs['entity.employee']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.cardHolder.lastName}" />
+                </p:column>
+
+                <p:column sortBy="#{item.device.organization.name}" width="70" styleClass="wrap"
+                    filterBy="#{item.device.organization.name}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{eventmsgs['entity.organization']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.device.organization.name}" />
+                </p:column>
+
+                <p:column sortBy="#{item.device.deviceNumber}" width="70" styleClass="wrap"
+                    filterBy="#{item.device.deviceNumber}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{eventmsgs['entity.device_number']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.device.deviceNumber}" />
+                </p:column>
+
+                <p:column sortBy="#{item.direction.name}" width="70" styleClass="wrap"
+                    filterBy="#{item.direction.name}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{eventmsgs['entity.direction']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.direction.name}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

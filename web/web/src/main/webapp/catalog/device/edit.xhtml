@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{devmsgs.edit}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:event listener="#{deviceBean.processUrlParameters}" type="preRenderView" />
+
+        <h:form id="fill-form" styleClass="def-form">
+            <p:fieldset styleClass="form-fieldset" legend="#{devmsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="mediumlabel,short">
+                    <f:facet name="header">
+                        <p:messages id="errors" />
+                    </f:facet>
+                    <h:outputLabel value="#{devmsgs['entity.device_number']}: *" for="name" />
+                    <h:inputText id="name" value="#{deviceBean.deviceNumber}"
+                        required="true" maxlength="16"
+                        requiredMessage="#{devmsgs['validation.device_number.empty']}" />
+
+                    <h:outputLabel value="#{devmsgs['entity.organization']}: *" for="organization" />
+                    <h:selectOneMenu id="organization" value="#{deviceBean.entity.organization.id}"
+                        required="true"
+                        requiredMessage="#{devmsgs['validation.organization.not.selected']}">
+                        <f:selectItem itemValue=""
+                            itemLabel="#{devmsgs['combo.organization.select.one']}" />
+                        <f:selectItems value="#{deviceBean.organizations}" var="item"
+                            itemLabel="#{item.name}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="#{devmsgs['entity.direction']}: *" for="direction" />
+                    <h:selectOneMenu id="direction" value="#{deviceBean.entity.direction.id}"
+                        required="true"
+                        requiredMessage="#{devmsgs['validation.direction.not.selected']}">
+                        <f:selectItem itemValue=""
+                            itemLabel="#{devmsgs['combo.direction.select.one']}" />
+                        <f:selectItems value="#{deviceBean.directions}" var="item"
+                            itemLabel="#{item.name}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="#{devmsgs['entity.description']}: " for="desc" />
+                    <h:inputTextarea id="desc" value="#{deviceBean.entity.description}"  maxlength="255" style="max-width: 450px; max-height: 300px; width: 188px" >
+                    </h:inputTextarea>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msgs.save}" action="#{deviceBean.update}" update="errors" />
+                    <p:commandButton value="#{msgs.cancel}" action="#{deviceBean.cancelEdit}" immediate="true" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

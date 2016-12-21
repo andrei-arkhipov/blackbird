@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{cardmsgs.view}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <ui:param name="roleName" value="#{msgs['permission.cardholders']}" />
+        </f:metadata>
+
+        <f:event listener="#{cardHolderBean.processUrlParameters}" type="preRenderView" />
+        <h:form id="fill-form" styleClass="def-form">
+            <p:fieldset styleClass="form-fieldset" legend="#{cardmsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="mediumlabel,short">
+                    <h:outputLabel value="#{cardmsgs['entity.card_number']}: " />
+                    <comp:outputTextBox value="#{cardHolderBean.entity.cardNumber}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.last_name']}: " />
+                    <comp:outputTextBox value="#{cardHolderBean.entity.lastName}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.first_name']}: " />
+                    <comp:outputTextBox value="#{cardHolderBean.entity.firstName}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.middle_name']}: " />
+                    <comp:outputTextBox value="#{cardHolderBean.entity.middleName}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.employee_number']}: " />
+                    <comp:outputTextBox value="#{cardHolderBean.entity.employeeNumber}" />
+
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                        <h:outputLabel value="#{cardmsgs['entity.employee_photo']}: " />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                       <!--<p:graphicImage value="#{cardHolderBean.image}"/>-->
+                        <img src="#{request.contextPath}/image_download/?id=#{cardHolderBean.entity.id}" style="max-width: 150px; max-height: 150px;"/>
+                    </ui:fragment>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:button value="#{msgs.edit}" outcome="edit.jsf" rendered="#{userSession.canChange2(roleName)}" >
+                        <f:param name="id" value="#{cardHolderBean.entity.id}" />
+                    </p:button>
+                    <p:button value="#{msgs.list}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

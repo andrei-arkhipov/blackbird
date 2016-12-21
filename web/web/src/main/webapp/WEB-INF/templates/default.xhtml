@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>inBox</title>
+        <script>
+            document.createElement('header');
+            document.createElement('nav');
+            document.createElement('section');
+            document.createElement('article');
+            document.createElement('aside');
+            document.createElement('footer');
+        </script>
+    </f:facet>
+    <h:outputStylesheet library="css" name="ie.css" />
+    <h:outputStylesheet library="css" name="ttk.css" />
+    <h:outputStylesheet library="css" name="forms.css" />
+    <!-- h:outputStylesheet library="css" name="Aristo/Aristo.css" /-->
+    <h:outputStylesheet library="css" name="dataTables.css" />
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputStylesheet library="css" name="building.css" />
+    <h:outputStylesheet library="css" name="list.css" />
+    <h:outputScript library="javascript" name="form-helpers.js" />
+    <h:outputScript library="javascript" name="nav.js" />
+</h:head>
+<h:body class="grid10">
+    <f:metadata>
+        <f:event listener="#{userSession.login}" type="preRenderView" />
+        <ui:param name="readAdmin" value="#{msgs['permission.admin']}" />
+        <ui:param name="readCatalog" value="#{msgs['permission.catalogs']}" />
+        <ui:param name="readReports" value="#{msgs['permission.reports']}" />
+        <ui:param name="readEventLog" value="#{msgs['permission.eventlog']}" />
+    </f:metadata>
+
+    <div class="wrapper" id="site-container">
+        <f:metadata>
+            <f:event listener="#{userSession.login}" type="preRenderView" />
+        <f:metadata>
+            <ui:param name="readAdmin" value="#{msgs['permission.admin']}" />
+            <ui:param name="readCatalog" value="#{msgs['permission.catalogs']}" />
+        </f:metadata>
+        </f:metadata>
+
+
+        <!--OTHER APPLICATION MENU-->
+        <header id="site-header">
+            <h1 class="logo">
+                <a href="#" /> <img style="margin-left: -12px; margin-top: 6px;"
+                    src="#{request.contextPath}/resources/img/logo.png" alt="" />
+            </h1>
+
+            <div style="float: right;margin: 20px 0px 0px 0px;">
+                <h:form>
+                    <h:commandLink action="#{userSession.logout}" value="Выход [#{userSession.userFullName}]" />
+                </h:form>
+
+            </div>
+        </header>
+        <div style="width: 100%; height: 20px;"></div>
+
+        <div id="site-content">
+
+            <section class="fullcol" id="site-section"> <!--LAST ELEMENT in PATH-->
+                <ui:insert name="header">
+
+                </ui:insert> <!--MAIN CONTENT-->
+
+                <div id="section-content" class="eightcol omega">
+                    <span id="content">
+                        <ui:insert name="content">
+
+                        </ui:insert>
+                    </span>
+                </div>
+
+                <!--LEFT MENU-->
+                <div>
+                    <ui:insert name="applicationLeftMenu">
+
+                    </ui:insert>
+                </div>
+			</section>
+        </div>
+
+    </div>
+    <footer id="site-footer" class="grid12" role="contentinfo">
+        <nav class="site-aid">
+            <div class="wrapper">
+                <ul>
+                    <li><a href="#"></a></li>
+                    <li class="omega"><span></span></li>
+                </ul>
+            </div>
+        </nav>
+    </footer>
+
+    <!--APPLICATION MENU-->
+    <nav id="site-nav">
+        <ul class="wrapper">
+            <ui:fragment rendered="#{userSession.canRead2(readEventLog)}">
+                <li class=""><a href="#{request.contextPath}/logs/index.jsf" class="menu-item">#{msgs.logs}</a></li>
+            </ui:fragment>
+            <ui:fragment rendered="#{userSession.canRead2(readCatalog)}">
+                <li class=""><a href="#{request.contextPath}/catalog/index.jsf" class="menu-item">Справочники</a></li>
+            </ui:fragment>
+            <ui:fragment rendered="#{userSession.canRead2(readReports)}">
+                <li class=""><a href="#{request.contextPath}/reports/index.jsf" class="menu-item">Отчёты</a></li>
+            </ui:fragment>
+            <ui:fragment rendered="#{userSession.canRead2(readAdmin)}">
+                <li class="" style="position: relative"><a href="#{request.contextPath}/admin/index.jsf" class="menu-item">Администрирование</a></li>
+            </ui:fragment>
+        </ul>
+    </nav>
+    <script type="text/javascript">
+        //$("legend").removeClass();
+    </script>
+</h:body>
+</html>

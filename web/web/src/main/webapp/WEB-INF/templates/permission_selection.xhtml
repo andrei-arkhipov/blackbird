@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable id="perm-table" value="#{roleBean.entity.permissions}" var="rp" >
+        <p:column headerText="#{permmsgs['base.name']}">
+            <h:outputText value="#{rp.permission.name}" />
+        </p:column>
+        <p:column headerText="#{permmsgs['permission.read']}" style="width:100px" >
+            <h:selectBooleanCheckbox id="all-read" value="#{rp.canRead}" />
+        </p:column>
+        <p:column headerText="#{permmsgs['permission.change']}" style="width:100px" >
+            <h:selectBooleanCheckbox value="#{rp.canChange}" onchange="markReadable(this)" />
+        </p:column>
+    </p:dataTable>
+
+</ui:composition>

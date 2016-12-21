@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>inBox</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <h:outputStylesheet library="css" name="ttk.css" />
+    <h:outputStylesheet library="css" name="forms.css" />
+    <h:outputStylesheet library="css" name="dataTables.css" />
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputStylesheet library="css" name="list.css" />
+    <h:outputStylesheet library="css" name="primefaces.css" />
+    <h:outputScript library="javascript" name="nav.js" />
+    <h:outputScript library="javascript" name="calendar_locale_ru.js"/>
+    <h:outputScript library="javascript" name="ie8.js"/>
+</h:head>
+<h:body class="grid10">
+
+    <div class="wrapper" id="site-container">
+
+        <!--OTHER APPLICATION MENU-->
+        <header id="site-header">
+            <h1 class="logo">
+                <a href="#{request.contextPath}/index.html">
+                    <h:graphicImage value="/resources/img/logo.png" />
+                </a>
+            </h1>
+           
+        </header>
+
+        <!--APPLICATION MENU-->
+        <nav id="site-nav">
+
+        </nav>
+
+        <div id="site-content">
+
+            <section class="fullcol" id="site-section"> <!--LAST ELEMENT in PATH-->
+
+                <h2 style="text-align: center">Здравствуйте,
+                    вы заблокированы</h2>
+
+                <!--MAIN CONTENT-->
+
+                <!--LEFT MENU-->
+                <div>
+                    <ui:insert name="applicationLeftMenu">
+
+                    </ui:insert>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+    <footer id="site-footer" class="grid12" role="contentinfo"> <nav
+            class="site-aid">
+        <div class="wrapper">
+            <ul>
+                <li><a href="#"></a></li>
+                <li class="omega"><span></span></li>
+            </ul>
+        </div>
+    </nav> </footer>
+    <script type="text/javascript">
+        //$("legend").removeClass();
+    </script>
+</h:body>
+</html>

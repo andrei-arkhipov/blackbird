@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/eventlogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{wrongeventmsgs.list}</h2>
+    </ui:define>
+    <ui:define name="content">
+    <f:event listener="#{incorrectEventLogBean.restoreState}" type="preRenderView"/>
+    <f:event listener="#{incorrectEventLogBean.processUrlParameters}" type="preRenderView"/>
+        <f:metadata>
+        </f:metadata>
+        <h:outputText value="&#160;" />
+        <br />
+        <h:outputScript library="javascript" name="globalfilter.js" />
+        <h:form id="ext-list-form" class="def-form">
+            <p:fieldset legend="#{wrongeventmsgs['extfilter.title']}" toggleable="true" collapsed="true">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="shortlabel,short">
+                    <h:outputLabel value="#{wrongeventmsgs['extfilter.date.from']}" />
+                    <p:calendar locale="ru" showButtonPanel="true" value="#{incorrectEventLogBean.filterManager.dateFrom}" 
+                        navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true"/>
+                    <h:outputLabel value="#{wrongeventmsgs['extfilter.date.to']}" />
+                    <p:calendar locale="ru" showButtonPanel="true" value="#{incorrectEventLogBean.filterManager.dateTo}"
+                        navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true" />
+                    <h:outputLabel value="#{wrongeventmsgs['entity.event_type']}" />
+                    <h:selectOneMenu id="cardholders" value="#{incorrectEventLogBean.filterManager.incorrectEventId}">
+                        <f:selectItem itemLabel="#{wrongeventmsgs['filter.choose.one']}"
+                            itemValue="" />
+                        <f:selectItems value="#{incorrectEventLogBean.filterManager.incorrectEvents}"
+                            var="item" itemLabel="#{item.name}" itemValue="#{item.id}" />
+					</h:selectOneMenu>
+                </h:panelGrid>
+<!--                 <p:commandButton id="searchButton"
+                    value="#{eventmsgs['extfilter.apply']}" 
+                    onstart="$($('.ui-paginator')[0]).find('.ui-paginator-first').trigger('click')"
+                    oncomplete="globalFilter.focusElement('ext-list-form:globalFilter')"
+                    actionListener="#{incorrectEventLogBean.doFiltering}"
+                    update="list">
+                </p:commandButton>
+                <p:commandButton value="#{eventmsgs['extfilter.reset']}"
+                    actionListener="#{incorrectEventLogBean.resetFilter}"
+                    update="ext-list-form" >  
+                </p:commandButton> -->
+            </p:fieldset>
+            <h:panelGrid id="global-grid"
+                styleClass="panelGridTwoCol globalFilter2" columns="4"
+                columnClasses="shortlabel,short">
+                <p:watermark value="#{msgs['global.filter']}" for="globalFilter" />
+                <h:inputText value="#{incorrectEventLogBean.filterManager.global}"
+                    id="globalFilter" style="width:150px" />
+                <p:commandButton id="searchButton" value="#{eventmsgs['extfilter.apply']}" 
+                    onstart="$($('.ui-paginator')[0]).find('.ui-paginator-first').trigger('click')"
+                    oncomplete="globalFilter.focusElement('ext-list-form:globalFilter')"
+                    actionListener="#{incorrectEventLogBean.doFiltering}" update="list" >
+                </p:commandButton>
+                <p:commandButton value="#{eventmsgs['extfilter.reset']}" 
+                    actionListener="#{incorrectEventLogBean.resetFilter}" update="ext-list-form" >
+                </p:commandButton>
+            </h:panelGrid>
+            <script type="text/javascript">
+                globalFilter.init('#ext-list-form\\:globalFilter','#ext-list-form\\:searchButton',600);
+            </script>
+
+        <!-- /h:form>
+        <h:form id="list-form"-->
+            <p:dataTable id="list" widgetVar="listTable" styleClass="list"
+                value="#{incorrectEventLogBean.filterManager.model}" var="item"
+                emptyMessage="#{msgs['no.data']}" paginator="true" rows="15"  
+                lazy="true" pageLinks="5" 
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="(#{msgs.page}: {currentPage} #{msgs.of} {totalPages})"
+                rowsPerPageTemplate="5,10,15,25,50">
+                <p:column sortBy="#{item.createDate}" filterBy="#{item.createDate}"
+                    filterStyle="display:none;"
+                    headerText="#{wrongeventmsgs['entity.event_date']}">
+                    <h:outputText value="#{item.createDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column sortBy="#{item.incorrectEvent.name}"
+                    filterBy="#{item.incorrectEvent.name}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{wrongeventmsgs['entity.event_type']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.incorrectEvent.name}" />
+                </p:column>
+
+               <p:column sortBy="#{item.cardNumber}"
+                   filterBy="#{item.cardNumber}" filterStyle="display:none;">
+                   <f:facet name="header">
+                       <h:outputText value="#{wrongeventmsgs['entity.card_number']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.cardNumber}" />
+                </p:column>
+
+                <p:column sortBy="#{item.deviceNumber}"
+                    filterBy="#{item.deviceNumber}" filterStyle="display:none;">
+                    <f:facet name="header">
+                        <h:outputText value="#{wrongeventmsgs['entity.device_number']}" />
+                    </f:facet>
+                    <h:outputText value="#{item.deviceNumber}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

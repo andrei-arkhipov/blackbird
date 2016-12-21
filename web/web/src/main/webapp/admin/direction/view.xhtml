@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/adminDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{dirmsgs.view}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:event listener="#{directionBean.processUrlParameters}" type="preRenderView" />
+
+        <h:form id="view-form" styleClass="def-form">
+            <p:fieldset legend="#{dirmsgs['base.name']}">
+                <h:panelGrid id="view-grid" styleClass="panelGridTwoCol" columns="2"
+                    columnClasses="shorterlabel,short">
+                    <h:outputLabel value="#{dirmsgs['entity.name']}: " />
+                    <comp:outputTextBox value="#{directionBean.entity.name}" />
+
+                    <h:outputLabel value="#{dirmsgs['entity.internal_name']}: " />
+                    <comp:outputTextBox value="#{directionBean.entity.internalName}" />
+
+                    <ui:fragment rendered="#{directionBean.entity.description !=null}">
+                        <h:outputText value="#{dirmsgs['entity.description']}: " />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{directionBean.entity.description != null}">
+                        <comp:outputTextBox value="#{directionBean.entity.description}" size = "160"/>
+                    </ui:fragment>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:button value="#{msgs.edit}" outcome="edit.jsf">
+                        <f:param name="id" value="#{directionBean.entity.id}" />
+                    </p:button>
+                    <p:button value="#{msgs.list}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

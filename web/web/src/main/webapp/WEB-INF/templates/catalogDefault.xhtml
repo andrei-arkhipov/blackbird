@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:define name="header">
+            <h2>#{msgs.references}</h2>
+        </ui:define>
+        <ui:define name="applicationLeftMenu">
+        <f:metadata>
+            <ui:param name="readCard" value="#{msgs['permission.cardholders']}" />
+            <ui:param name="readDev" value="#{msgs['permission.devices']}" />
+            <ui:param name="readOrg" value="#{msgs['permission.organizations']}" />
+        </f:metadata>
+            <nav class="twocol alpha" id="section-nav">
+                <ul>
+                    <ui:fragment rendered="#{userSession.canRead2(readCard)}">			
+                    <li>
+                        <span><a href="#{request.contextPath}/catalog/cardholder/list.jsf">Работники</a></span><hr />
+                    </li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{userSession.canRead2(readDev)}">	
+                    <li>
+                        <span><a href="#{request.contextPath}/catalog/device/list.jsf">Считыватели карт</a></span><hr />
+                    </li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{userSession.canRead2(readOrg)}">
+                    <li>
+                        <span><a href="#{request.contextPath}/catalog/organization/list.jsf">Организации</a></span><hr />
+                    </li>
+                    </ui:fragment>
+                </ul>
+            </nav>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

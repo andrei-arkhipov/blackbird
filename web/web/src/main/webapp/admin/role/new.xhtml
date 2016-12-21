@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/adminDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{rolemsgs.new}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:event listener="#{roleBean.initRolePermissions}" type="preRenderView" />
+        <p:growl widgetVar="growl"/>
+        <h:form id="fill-form" styleClass="def-form">
+            <p:fieldset styleClass="form-fieldset" legend="#{rolemsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="shorterlabel,short">
+                    <f:facet name="header">
+                        <p:messages id="errors" />
+                    </f:facet>
+                    <h:outputLabel value="#{rolemsgs['entity.name']}: *" for="name" />
+                    <h:inputText id="name" value="#{roleBean.name}"
+                        required="true" maxlength="255"
+                        requiredMessage="#{rolemsgs['validation.name.empty']}" />
+
+                    <h:outputLabel value="#{rolemsgs['entity.internal_name']} (#{rolemsgs['internal.name.latin']}): *" for="internal_name" />
+                    <h:inputText id="internal_name" value="#{roleBean.internalName}"
+                        required="true" maxlength="255"
+                        onkeypress="return disableNonLatinKeys(event,this);"
+                        requiredMessage="#{rolemsgs['validation.internal_name.empty']}"
+						validatorMessage="#{rolemsgs['validation.internal_name.latin.only']}">
+						<f:validateRegex pattern="#{regexp.internalName}" />
+                    </h:inputText>
+                    <h:outputLabel value="#{rolemsgs['entity.description']}: " for="desc" />
+                    <h:inputTextarea id="desc" value="#{roleBean.entity.description}" maxlength="255" style="max-width: 450px; max-height: 300px; width: 188px" />
+                </h:panelGrid>
+                <h:panelGrid id="fill-grid2" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="shorterlabel">
+                    <h:outputLabel value="#{rolemsgs['entity.permissions']} :" />
+                    <ui:fragment>
+                        <ui:include src="/WEB-INF/templates/permission_selection.xhtml" />
+                    </ui:fragment>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msgs.save}" action="#{roleBean.save}" update="errors" />
+                    <p:button value="#{msgs.cancel}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

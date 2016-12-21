@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:define name="header">
+            <h2>#{msgs.admin}</h2>
+        </ui:define>
+        <ui:define name="applicationLeftMenu">
+            <ui:param name="readUser" value="#{msgs['permission.users']}" />
+            <ui:param name="readRole" value="#{msgs['permission.roles']}" />
+
+            <nav class="twocol alpha" id="section-nav">
+                <ul>
+                    <ui:fragment rendered="#{userSession.canRead2(readUser)}">
+                    <li>
+                        <span> <a href="#{request.contextPath}/admin/user/list.jsf">Пользователи</a></span><hr />
+                    </li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{userSession.canRead2(readRole)}">
+                    <li>
+                        <span> <a href="#{request.contextPath}/admin/role/list.jsf">Роли</a></span><hr />
+                    </li>
+                    </ui:fragment>
+<!--                     <li>
+                        <span> <a href="#{request.contextPath}/admin/permission/list.jsf">Динамические разрешения</a></span> <hr />
+                    </li>
+                    <li>
+                        <span> <a href="#{request.contextPath}/admin/incorrectevent/list.jsf">Неверные события</a></span> <hr />
+                    </li> -->
+                </ul>
+            </nav>
+        </ui:define>
+
+    </ui:composition>
+</h:body>
+
+</html>

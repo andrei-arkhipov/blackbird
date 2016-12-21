@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/adminDefault.xhtml">
+	<ui:define name="content">
+		<!-- A small tweak to load jquery from primefaces -->
+		<p:commandButton>
+			<p:ajax></p:ajax>
+		</p:commandButton>
+		<script>
+			var elem = document.getElementById('section-content');
+			$(elem).css('visibility','hidden');
+		</script>
+	</ui:define>	
+</ui:composition>

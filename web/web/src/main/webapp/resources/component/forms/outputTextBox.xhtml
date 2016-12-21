@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="id" required="false" />
+	<composite:attribute name="value"/>
+	<composite:attribute name="styleClass"/>
+	<composite:attribute name="style"/>
+	<composite:attribute name="rendered" required="false"/>
+    <composite:attribute name="size" required="false"/>
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+		<h:inputText id="#{cc.attrs.id}cc" style="border:none !important; #{cc.attrs.style}" readonly="true"
+			value="#{cc.attrs.value}" rendered="#{cc.attrs.rendered}" styleClass="#{cc.attrs.styleClass}"
+                size="#{cc.attrs.size}"/>
+</composite:implementation>
+</html>

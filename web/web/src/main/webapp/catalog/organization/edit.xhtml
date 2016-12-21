@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{orgmsgs.edit}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:event listener="#{organizationBean.processUrlParameters}" type="preRenderView" />
+        <h:form id="fill-form" styleClass="def-form">
+            <p:fieldset styleClass="form-fieldset" legend="#{orgmsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="mediumlabel,short">
+                    <f:facet name="header">
+                        <p:messages id="errors" />
+                    </f:facet>
+                    <h:outputLabel value="#{orgmsgs['entity.name']}: *" for="name" />
+                    <h:inputText id="name" value="#{organizationBean.entity.name}"
+                        required="true" maxlength="255"
+                        requiredMessage="#{orgmsgs['validation.name.empty']}" />
+
+                    <h:outputLabel value="#{orgmsgs['entity.description']}: " for="desc" />
+                    <h:inputTextarea id="desc" value="#{organizationBean.entity.description}" maxlength="255" style="max-width: 450px; max-height: 300px; width: 188px" />
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msgs.save}" action="#{organizationBean.update}" update="errors" />
+                    <p:commandButton value="#{msgs.cancel}" action="#{organizationBean.cancelEdit}" immediate="true" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

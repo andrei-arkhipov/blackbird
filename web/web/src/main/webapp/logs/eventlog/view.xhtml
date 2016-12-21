@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    template="/WEB-INF/templates/eventlogDefault.xhtml">
+    <ui:define name="header">
+        <div style="float: left; width: auto;">
+            <h2>#{eventmsgs.view}</h2>
+        </div>
+    </ui:define>
+    <ui:define name="content">
+        <f:metadata>
+
+        </f:metadata>
+        <f:event listener="#{eventLogBean.processUrlParameters}" type="preRenderView" />
+
+        <h:form id="view-form" class="def-form">
+            <p:fieldset legend="#{eventmsgs['base.name']}">
+                <h:panelGrid id="view-grid" styleClass="panelGridTwoCol "
+                    columns="4" columnClasses="shortlabel,short,shortlabel,short">
+					<h:outputLabel value="#{eventmsgs['entity.event_date']}: " />
+					<h:inputText value="#{eventLogBean.entity.createDate}" size="0" style="border:none !important;" readonly="true">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+					</h:inputText>
+
+                    <h:outputLabel value="#{eventmsgs['entity.card_number']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.cardHolder.cardNumber}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.last_name']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.cardHolder.lastName}" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.first_name']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.cardHolder.firstName}" />
+					
+                    <h:outputLabel value="#{eventmsgs['entity.employee_number']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.cardHolder.employeeNumber}" />
+
+                    <h:outputLabel value="#{eventmsgs['entity.organization']}: " />
+                    <comp:outputDateBox id="dateCreation" value="#{eventLogBean.entity.device.organization.name}" />
+					
+                    <h:outputLabel value="#{eventmsgs['entity.device_number']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.device.deviceNumber}" />
+
+                    <h:outputLabel value="#{eventmsgs['entity.direction']}: " />
+                    <comp:outputTextBox value="#{eventLogBean.entity.direction.name}" />
+				</h:panelGrid>
+			</p:fieldset>
+            <h:panelGrid id="button-grid" styleClass="panelGridTwoCol "
+                columns="2" columnClasses="shortlabel for-picklist,short">
+                <f:facet name="footer">
+                    <p:button value="#{msgs.list}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

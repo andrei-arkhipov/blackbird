@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/adminDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{permmsgs.list}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="new-item-form">
+            <p:commandLink action="#{permissionBean.toNew}" value="#{msgs['create.record']}" />
+        </h:form>
+        <h:form id="list-form">
+            <p:dataTable id="list" widgetVar="listTable" styleClass="list"
+                value="#{permissionBean.lazyModel}" var="item"
+                emptyMessage="#{msgs['no.data']}" paginator="true" rows="10"
+                lazy="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="(#{msgs.page}: {currentPage} #{msgs.of} {totalPages})"
+                rowsPerPageTemplate="5,10,25,50">
+                <f:facet name="header">
+                    <p:outputPanel styleClass="globalFilter">
+                        <p:watermark value="#{msgs['global.filter']}" for="globalFilter" />
+                        <p:inputText id="globalFilter" onkeyup="listTable.filter()" style="width:150px" />
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}"
+                    filterStyle="display:none;" headerText="#{permmsgs['entity.name']}">
+                    <h:outputLink value="view.jsf">
+                        <f:param name="id" value="#{item.id}" />
+                        <h:outputText value="#{item.name}" style="text-decoration: underline" />
+                    </h:outputLink>
+                </p:column>
+
+                <p:column sortBy="#{item.internalName}" filterBy="#{item.internalName}"
+                    filterStyle="display:none" headerText="#{permmsgs['entity.internal_name']}">
+                    <h:outputText value="#{item.internalName}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/adminDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{wrongmsgs.new}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="fill-form" styleClass="def-form">
+            <p:fieldset styleClass="form-fieldset" legend="#{wrongmsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="shorterlabel,short">
+                    <f:facet name="header">
+                        <p:messages id="errors" />
+                    </f:facet>
+                    <h:outputLabel value="#{wrongmsgs['entity.name']}: *" for="name" />
+                    <h:inputText id="name" value="#{incorrectEventBean.entity.name}"
+                        required="true"
+                        requiredMessage="#{wrongmsgs['validation.name.empty']}" />
+
+                    <h:outputLabel value="#{wrongmsgs['entity.internal_name']}: *" for="internal_name" />
+                    <h:inputText id="internal_name" value="#{incorrectEventBean.entity.internalName}"
+                        required="true"
+                        requiredMessage="#{wrongmsgs['validation.internal_name.empty']}" />
+
+                    <h:outputLabel value="#{dirmsgs['entity.description']}: " for="desc" />
+                    <h:inputTextarea id="desc" value="#{incorrectEventBean.entity.description}" style="resize: none; width: 188px
+                    "/>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msgs.save}" action="#{incorrectEventBean.save}" update="errors" />
+                    <p:button value="#{msgs.cancel}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

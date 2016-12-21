@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/reportsDefault.xhtml">
+	<ui:define name="header">
+        <h2>#{reportmsgs['report.event.log']}</h2>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form" class="def-form" prependId="false">
+            <p:fieldset legend="#{reportmsgs.info}">
+			    <h:panelGrid columns="4" styleClass="panelGridTwoCol" columnClasses="shortlabel,short">
+                    <h:outputLabel value="#{reportmsgs['start.date']}: " for="startDate" />
+                    <p:calendar id="startDate" locale="ru" showButtonPanel="true"  value="#{eventReportBean.startDate}"
+                                navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true" >
+                        <f:validator validatorId="calendarValidator" />
+                    </p:calendar>
+                    <h:outputText value="&#160;" />
+                    <h:message for="startDate" style="color:red" />
+                    <h:outputLabel value="#{reportmsgs['end.date']}: " for="endDate" />
+                    <p:calendar id="endDate" locale="ru" showButtonPanel="true" value="#{eventReportBean.endDate}"
+                                navigator="true" pattern="dd.MM.yyyy HH:mm" readonlyInput="true" >
+                        <f:validator validatorId="calendarValidator" />
+                    </p:calendar>
+                    <h:outputText value="&#160;" />
+                    <h:message for="endDate" style="color:red" />
+
+                    <h:outputLabel value="#{reportmsgs['report.card.number']}: " for="cardNumber" />
+                    <p:autoComplete id="cardNumber" value="#{eventReportBean.cardNumber}"
+                                completeMethod="#{eventReportBean.complete}" />
+                    <h:outputText value="&#160;" />
+                    <h:message for="cardNumber" style="color:red" />
+
+                    <h:outputLabel value="#{eventmsgs['entity.organization']}" />
+                    <h:selectOneMenu id="cities" value="#{eventReportBean.organization}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                                      itemValue="" />
+                        <f:selectItems value="#{eventReportBean.organizations}" var="item"
+                                       itemLabel="#{item.name}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+
+                    <h:outputLabel value="#{eventmsgs['entity.device_number']}" />
+                    <h:selectOneMenu id="devices" value="#{eventReportBean.deviceNumber}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                                      itemValue="" />
+                        <f:selectItems value="#{eventReportBean.deviceNumbers}"
+                                       var="item" itemLabel="#{item.deviceNumber}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+
+                  <!--  <h:outputLabel  value="#{eventmsgs['entity.direction']}" />
+                    <h:selectOneMenu id="directions" value="#{eventReportBean.direction}">
+                        <f:selectItem itemLabel="#{eventmsgs['filter.choose.one']}"
+                                      itemValue="" />
+                        <f:selectItems value="#{eventReportBean.directions}" var="item"
+                                       itemLabel="#{item.name}" itemValue="#{item.id}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />    -->
+
+                </h:panelGrid>
+            </p:fieldset>
+
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <h:commandLink id="export1" value="#{reportmsgs['export.excel']}"
+                                   action="#{eventReportBean.asXLS}" target="_self"
+                                   type="application/xls" title="#{reportmsgs['export.excel']}">
+                    </h:commandLink>
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+                    <h:outputText value="&#160;" />
+                    <h:commandLink id="export2" value="#{reportmsgs['export.pdf']}"
+                                   action="#{eventReportBean.asPDF}" target="_self"
+                                   type="application/pdf" title="#{reportmsgs['export.excel']}">
+                    </h:commandLink>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

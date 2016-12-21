@@ -1,0 +1,30 @@
+<%/*****************************************************************
+* Gridnine AB http://www.gridnine.com
+* Project: Ahlens2
+* Legal notice: (c) Gridnine AB. All rights reserved.
+*****************************************************************/
+%><%@ page contentType="text/css; charset=UTF-8" pageEncoding="UTF-8"
+
+import="org.opencms.jsp.*"
+import="java.util.*"
+
+%><%
+
+CmsJspActionElement cms = new CmsJspActionElement(pageContext, request, response);
+String resources = "/system/modules/com.onemanteam.opencms.modules.ttk2/resources/";
+
+%>
+
+
+/*             IE7
+ ----------------------------- */
+html { *overflow:hidden; }
+body { *overflow:hidden; }
+#site-content { *padding-bottom:20px; }
+#site-nav .sub a { *line-height:1.4em; }
+.site-aid li { *height:9px; }
+.start #site-header { *margin-bottom:618px; }
+#site-section { *padding-bottom:20px; }
+
+#section-nav h2 { *margin:9px 0; }
+#filter hr { *width:748px; }

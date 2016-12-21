@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{devmsgs.view}</h2>
+    </ui:define>
+    <ui:define name="content">
+    <f:metadata>
+        <ui:param name="roleName" value="#{msgs['permission.devices']}" />
+    </f:metadata>
+
+        <f:event listener="#{deviceBean.processUrlParameters}" type="preRenderView" />
+        <h:form id="view-form" class="def-form">
+            <p:fieldset legend="#{devmsgs['base.name']}">
+                <h:panelGrid styleClass="panelGridTwoCol" columns="2"
+                    columnClasses="mediumlabel,short">
+                    <h:outputLabel value="#{devmsgs['entity.device_number']}: " />
+                    <comp:outputTextBox value="#{deviceBean.entity.deviceNumber}" />
+
+                    <h:outputLabel value="#{devmsgs['entity.organization']}: " />
+                    <comp:outputTextBox value="#{deviceBean.entity.organization.name}" />
+
+                    <h:outputLabel value="#{devmsgs['entity.direction']}: " />
+                    <comp:outputTextBox value="#{deviceBean.entity.direction.name}" />
+
+                    <ui:fragment rendered="#{deviceBean.entity.description !=null}">
+                        <h:outputLabel value="#{devmsgs['entity.description']}: " />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{deviceBean.entity.description != null}">
+                        <comp:outputTextBox value="#{deviceBean.entity.description}" />
+                    </ui:fragment>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:button value="#{msgs.edit}" outcome="edit.jsf" rendered="#{userSession.canChange2(roleName)}" >
+                        <f:param name="id" value="#{deviceBean.entity.id}" />
+                    </p:button>
+                    <p:button value="#{msgs.list}" outcome="list.jsf" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

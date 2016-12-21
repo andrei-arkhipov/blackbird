@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- INTERFACE -->
+<composite:interface componentType="org.primefaces.component.Column" preferred="true" shortDescription="Extended Datatable">	
+    <composite:attribute name="item" required="true"/>
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+				<cc:actionSource name="#{component}">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.ext.number']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.extendedNumber}" />
+				</p:column>
+				</cc:actionSource>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.create.date']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.createDate}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.created.by']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.createdByFullName}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.status']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.status.name}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['documents.mistake']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.mistake ? msgs['boolean.true'] : msgs['boolean.false'] }" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.city']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.city.name}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{docmsgs['entity.service']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.service.name}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{addrmsgs['address.region.name']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.city.region}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{addrmsgs['address.street.name']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.address.streetType} #{cc.attrs.item.address.streetName}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{addrmsgs['address.building.number']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.address.buildingNumber}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{addrmsgs['address.porch']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.address.porch}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{addrmsgs['address.apartment.number']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.address.apartmentNumber}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['lastname']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.lastName}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['firstname']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.firstName}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['middlename']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.middleName}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['phone']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.phone}" />
+				</p:column>
+			
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['phone2']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.phone2}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['email']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.email}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['passport.series']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.passportSeries}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['passport.number']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.passportNumber}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['passport.date']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.passportDate}" />
+				</p:column>
+				<p:column style="display:none;">
+					<f:facet name="header">
+						<h:outputText value="#{clientdatamsgs['passport.issued.by']}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.item.passportIssuedBy}" />
+				</p:column>
+</composite:implementation>
+</html>

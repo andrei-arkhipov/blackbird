@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{devmsgs.list}</h2>
+    </ui:define>
+    <ui:define name="content">
+    <f:metadata>
+        <ui:param name="roleName" value="#{msgs['permission.devices']}" />
+    </f:metadata>
+
+        <h:form id="new-item-form">
+            <p:commandLink action="#{deviceBean.toNew}" value="#{msgs['create.record']}" rendered="#{userSession.canChange2(roleName)}" />
+        </h:form>
+        <h:form id="list-form">
+            <p:dataTable id="list" widgetVar="listTable" styleClass="list"
+                value="#{deviceBean.lazyModel}" var="item"
+                emptyMessage="#{msgs['no.data']}" paginator="true" rows="10"
+                lazy="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="(#{msgs.page}: {currentPage} #{msgs.of} {totalPages})"
+                rowsPerPageTemplate="5,10,25,50">
+                <f:facet name="header">
+                    <p:outputPanel styleClass="globalFilter">
+                        <p:watermark value="#{msgs['global.filter']}" for="globalFilter" />
+                        <p:inputText id="globalFilter" onkeyup="listTable.filter()" style="width:150px" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:column sortBy="#{item.deviceNumber}" filterBy="#{item.deviceNumber}"
+                    filterStyle="display:none;" headerText="#{devmsgs['entity.device_number']}">
+                    <h:outputLink value="view.jsf">
+                        <f:param name="id" value="#{item.id}" />
+                        <h:outputText value="#{item.deviceNumber}"  style="text-decoration: underline"/>
+                    </h:outputLink>
+                </p:column>
+
+                <p:column sortBy="#{item.organization.name}" filterBy="#{item.organization.name}"
+                    filterStyle="display:none" headerText="#{devmsgs['entity.organization']}">
+                    <h:outputText value="#{item.organization.name}" />
+                </p:column>
+
+                <p:column sortBy="#{item.direction.name}" filterBy="#{item.direction.name}"
+                    filterStyle="display:none" headerText="#{devmsgs['entity.direction']}">
+                    <h:outputText value="#{item.direction.name}" />
+                </p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

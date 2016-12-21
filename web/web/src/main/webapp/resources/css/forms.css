@@ -1,0 +1,279 @@
+header, nav, section, article, aside, footer {
+   display:block;
+}
+
+table, table tr,div.ui-panel,li.ui-datalist-item,ul.ui-datalist-data,.ui-datalist,.ui-datalist-content {
+	border:none !important;
+	padding:0;
+	margin:0;
+}
+
+a.searchlink{
+	color: #3B5998;
+	cursor: pointer;
+	display:block;
+	padding:5px;
+	text-decoration: underline;
+}
+
+
+input {
+	box-sizing : border-box;
+	box-sizing:content-box\9;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing : border-box;
+}
+
+
+/* form errors & messages */
+.fm_message, .fm_error, .fm_info{
+  margin:0 0 16px 0px;
+  padding:6px;
+
+}
+.fm_info {
+  margin-top:25px;
+  background-color:#f0f0f0;
+  border:1px solid #999;
+}
+
+.fm_message{
+  background-color:#edffe8;
+  border:1px solid #44cc00;
+}
+
+.fm_error{
+  background-color:#FFEBE8;
+  border:1px solid #CC0000;
+}
+
+.error{
+  color:#CC0000;
+  margin-top:4px;
+}
+
+
+/* END of form errors & messages */
+form li {display:block}
+form .ui-panelgrid td{
+	border:none;
+	padding: 0px;
+}
+form,
+form ol,
+form ul {
+  margin:0;
+  padding:0;
+  list-style-type:none;
+}
+
+/*.def-form{width:97%;}*/
+.pad {
+  padding:10px 0;
+  /*background:#f6f6f6;*/
+}
+.def-form fieldset {
+    border:1px solid #dfdfdf;
+    padding: 5px 10px 10px 10px;
+    margin: 0 0 10px;
+    border-radius: 5px;
+}
+
+.def-form .panelGridTwoCol label {
+    display: block;
+    padding: 0px 4px 0px 0px;
+    text-align: right;
+    width: 100px;
+    color: #777;
+}
+.panelGridTwoCol,.panelGridTwoCol tr,#fill-form .ui-panelgrid,#fill-form .ui-panelgrid tr{
+	border:none !important;
+}
+
+.def-form .panelGridTwoCol td {border:none !important; padding:0;}
+.def-form .panelGridTwoCol .template-upload.ui-state-error td{ padding: 0 5px}
+.def-form .panelGridTwoCol input.small{width:70px}
+.def-form .panelGridTwoCol input.medium{width:130px}
+.def-form .panelGridTwoCol input.large{max-width:468px;width:100%}
+.def-form .manycheckbox-fix label {display:inline-block}
+.def-form .panelGridTwoCol label.medium {color: #777; margin: 8px 5px 10px; width: 300px;}
+.def-form .multiple-data tr {height:30px; }
+.def-form .multiple-data tr td {margin: 5px 0 ;vertical-align: top;}
+.def-form .multiple-data tr td label{margin: 5px 0 }
+.def-form .multiple-data tr td:last-child{padding-left:5px}
+.def-form table.dropdown-table{min-width:150px;}
+.def-form table.dropdown-table label {display:inline;}
+.def-form .filter-clear {margin-left:0px}
+.def-form .panelGridTwoCol textarea.popup {
+    border: 1px solid #CCC;
+    padding: 4px 5px;
+    margin-top: 2px;
+    width: 300px;
+    overflow: auto;
+    height: 50px;
+}
+
+.def-form .common {
+	display:table-cell; width:100%;
+}
+
+#view-form .ui-paginator.ui-widget-header{
+	background:none;
+	border:none;
+}
+
+.def-form legend {
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:#777;
+  padding:0 5px 0 5px;
+}
+
+.def-form label {
+  display:block;
+  padding:4px 0;
+}
+
+.def-form label.fieldlabel {
+display: block;
+padding: 0px 4px 0px 0px;
+text-align: right;
+width: 100px;
+color: #777;
+}
+
+.def-form span {
+/*  
+    width:200px;
+  padding:4px 0;
+  */
+}
+
+.def-form span.lbl {
+  float:left;
+  clear:both;
+}
+
+.star{
+  color:red;
+}
+
+.def-form input,
+.def-form select,
+.def-form textarea {
+  font-family: Lucida Grande, Verdana, Sans-serif;
+  font-size:inherit !important;
+  line-height:18px;
+  background:#FFF !important;
+}
+
+.veryshort input {width:50px !important}
+.shortlabel input {width:100px !important}
+.shorterlabel {width:150px !important}
+.shorterlabel label{width:150px !important}
+.mediumlabel {width:200px !important}
+.mediumlabel label{width:200px !important;float:right;}
+.mediumlabel.for-picklist {width:200px !important;vertical-align: top;}
+.for-picklist{vertical-align: top;}
+.short input {width:200px !important}
+.medium input {width:300px !important}
+.def-form .long input {width:504px;width:516px\9; padding:0 5px; margin-right:5px !important;}
+.def-form .radio-fix label {display:inline}
+
+.medium select {width:302px !important}
+.short select {width:200px !important;width:212px\9 !important}
+
+.def-form .veryshort,
+.def-form .short,
+.def-form .medium,
+.def-form .long {float: left;}
+.first{margin-right:8px}
+.last{margin-left:8px}
+
+
+.def-form select.short {width:212px !important}
+.def-form select.medium {width:292px !important}
+.def-form select.long {width:352px !important}
+
+.def-form select{
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+  margin:2px 0;
+  border:1px solid #CCCCCC;
+  height: 28px;
+  }
+
+.checkbox-wrapper{
+	display:table-cell;
+	vertical-align:middle;
+	height:32px;
+}
+.checkbox-wrapper input{border:none !important;}
+.checkbox-wrapper input:focus{
+	
+	outline:1px solid #CCC;
+}
+
+.def-form input {
+	border-collapse:collapse;
+  margin:2px 0 !important;
+  border:1px solid #CCCCCC !important;
+  padding:4px 5px !important;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important; 
+}
+.def-form input[type="checkbox"],.def-form input[type="radio"]{
+	border:none !important;
+}
+.def-form input:focus{
+	outline:1px solid #AAA !important;
+}
+
+.def-form textarea{
+  border:1px solid #CCCCCC;
+  padding:4px 5px;
+  margin:0;
+  width:98%;
+  overflow:auto;
+  height:50px;
+}
+
+.def-form div.system-btn {
+  float:left;
+  margin-right:5px;
+}
+
+.def-form div.system-btn input {
+    background: none repeat scroll 0 0 #E60000;
+    border: medium none;
+    color: #FFFFFF;
+    display: inline-block;
+    font: bold 11px Verdana,Arial,Tahoma,sans-serif;
+    border-radius: 3px 3px 3px 3px;
+    height: 24px;
+    margin: 0;
+    padding: 0 12px;
+    vertical-align: top;
+}
+
+.def-form div.system-btn input {
+  width:auto;
+}
+
+
+input.accessible-input {
+  cursor:pointer;
+  float:left;
+  height:22px !important;
+  margin:0;
+  padding:0 0 0 4px;
+  position:relative;
+  width:22px !important;
+  z-index:2;
+}
+
+.button{width:auto;}
+.clearfix:after { content:".";display:block;height:0;clear:both;visibility:hidden;overflow:hidden; }

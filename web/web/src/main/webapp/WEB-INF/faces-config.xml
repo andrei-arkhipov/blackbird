@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <name>inBox</name>
+    <application>
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>regexp</base-name>
+            <var>regexp</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ldap</base-name>
+            <var>ldapopts</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>env</base-name>
+            <var>env</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>direction_messages</base-name>
+            <var>dirmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>wrongevent_messages</base-name>
+            <var>wrongmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>permission_messages</base-name>
+            <var>permmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>role_messages</base-name>
+            <var>rolemsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>user_messages</base-name>
+            <var>usermsgs</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>cardholder_messages</base-name>
+            <var>cardmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>device_messages</base-name>
+            <var>devmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>organization_messages</base-name>
+            <var>orgmsgs</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>eventlog_messages</base-name>
+            <var>eventmsgs</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>wrongeventlog_messages</base-name>
+            <var>wrongeventmsgs</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>reports</base-name>
+            <var>reportmsgs</var>
+        </resource-bundle>
+    </application>
+
+</faces-config>

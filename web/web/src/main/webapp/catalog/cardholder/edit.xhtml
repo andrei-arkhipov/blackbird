@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:comp="http://java.sun.com/jsf/composite/component/forms"
+    template="/WEB-INF/templates/catalogDefault.xhtml">
+    <ui:define name="header">
+        <h2>#{cardmsgs.edit}</h2>
+    </ui:define>
+    <ui:define name="content">
+        <f:event listener="#{cardHolderBean.processUrlParameters}" type="preRenderView" />
+
+        <h:form id="fill-form" styleClass="def-form" enctype="multipart/form-data">
+            <p:fieldset styleClass="form-fieldset" legend="#{cardmsgs['base.name']}">
+                <h:panelGrid id="fill-grid" styleClass="panelGridTwoCol "
+                    columns="2" columnClasses="mediumlabel,medium">
+                    <f:facet name="header">
+                        <p:messages id="errors" />
+                    </f:facet>
+                    <h:outputLabel value="#{cardmsgs['entity.card_number']}: " for="card-number" />
+                    <h:outputLabel id="card-number" value="#{cardHolderBean.entity.cardNumber}" maxlength="16" readonly="true" style="font-weight:bold; color:black;"/>
+
+                    <h:outputLabel value="#{cardmsgs['entity.last_name']}: *" for="last-name" />
+                    <h:inputText id="last-name" value="#{cardHolderBean.entity.lastName}" maxlength="255" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.first_name']}: *" for="first-name" />
+                    <h:inputText id="first-name" value="#{cardHolderBean.entity.firstName}" maxlength="255" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.middle_name']}: " for="middle-name" />
+                    <h:inputText id="middle-name" value="#{cardHolderBean.entity.middleName}" maxlength="255" />
+
+                    <h:outputLabel value="#{cardmsgs['entity.employee_number']}: " for="employee-number" />
+                    <h:inputText id="employee-number" value="#{cardHolderBean.entity.employeeNumber}" maxlength="255" />
+
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                        <h:outputLabel value="#{cardmsgs['entity.employee_photo']}: " />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                       <!--<p:graphicImage value="#{cardHolderBean.image}"/>-->
+                        <img src="#{request.contextPath}/image_download/?id=#{cardHolderBean.entity.id}" style="max-width: 150px; max-height: 150px;"/>
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                        <h:outputLabel value="#{cardmsgs['entity.employee_photo.replace']}: " for="photo-replace" />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{cardHolderBean.entity.havePhoto()}">
+                        <p:fileUpload id="photo-replace" fileUploadListener="#{cardHolderBean.handleFileUpload}" update="msg" auto="true"
+                            allowTypes="/(\.|\/)(jpe?g|png)$/" sizeLimit="1048576" label="Загрузить" 
+                            invalidSizeMessage=" Размер файла должен быть меньше 1 МБ " invalidFileMessage=" Неверный тип файла "/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{!cardHolderBean.entity.havePhoto()}">
+                        <h:outputLabel value="#{cardmsgs['entity.employee_photo.add']}: " for="photo-add" />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{!cardHolderBean.entity.havePhoto()}">
+                        <p:fileUpload id="photo-add" fileUploadListener="#{cardHolderBean.handleFileUpload}" update="msg" auto="true"
+                            allowTypes="/(\.|\/)(jpe?g|png)$/" sizeLimit="1048576" label="Загрузить" 
+                            invalidSizeMessage=" Размер файла должен быть меньше 1 МБ " invalidFileMessage=" Неверный тип файла " /> 
+                    </ui:fragment>
+                    <p:growl id="msg" showDetail="true"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msgs.save}" action="#{cardHolderBean.update}" update="errors" ajax="false" />
+                    <p:commandButton value="#{msgs.cancel}" action="#{cardHolderBean.cancelEdit}" immediate="true" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

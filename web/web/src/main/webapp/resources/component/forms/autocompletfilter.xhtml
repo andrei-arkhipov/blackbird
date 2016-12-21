@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="nestedValue" required="true" />
+	<composite:attribute name="prefix" required="true" />
+	<composite:attribute name="completeMethod" required="true"
+		method-signature="java.lang.String complete( java.lang.String )" />
+	<composite:attribute name="clearMethod" required="true"
+		method-signature="void clear()" />
+	<composite:attribute name="placeholder" required="true" />
+	<composite:attribute name="converter" required="true"
+		type="javax.faces.convert.Converter" />
+	<composite:attribute name="render" required="true" />
+	<composite:attribute name="updateOnSelect" required="true" />
+	<composite:attribute name="updateOnClear" required="true" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+	<p:panelGrid id="#{cc.attrs.prefix}Filter">
+		<p:row>
+			<p:column>
+				<p:focus id="#{cc.attrs.prefix}fc" for="#{cc.attrs.prefix}Value"
+					rendered="#{not cc.attrs.render}" />
+				<p:watermark value="#{cc.attrs.placeholder}"
+					for="#{cc.attrs.prefix}Value" />
+				<!-- h:outputLabel value="#{cc.attrs.nestedValue}&#160;" style="display:inline;"
+						rendered="#{cc.attrs.render}" for="#{cc.attrs.prefix}Value" /-->
+				<p:tooltip id="#{cc.attrs.prefix}tp" for="#{cc.attrs.prefix}Value"
+					value="#{subsmsgs['base.name']}&#160;#{cc.attrs.nestedValue}"
+					rendered="#{cc.attrs.render}" />
+				<p:autoComplete id="#{cc.attrs.prefix}Value"
+					value="#{cc.attrs.value}" readonly="#{cc.attrs.render}"
+					styleClass="common" converter="#{cc.attrs.converter}"
+					completeMethod="#{cc.attrs.completeMethod}" var="item"
+					itemLabel="#{item.name}" itemValue="#{item}" tabindex="203">
+					<p:ajax event="itemSelect" update="#{cc.attrs.updateOnSelect}"
+						process="@this" immediate="true" />
+					<p:message for="#{cc.attrs.prefix}Value" />
+				</p:autoComplete>
+			</p:column>
+			<p:column>
+				<p:commandButton id="#{cc.attrs.prefix}Clear" tabindex="203"
+					icon="ui-icon-circle-close" action="#{cc.attrs.clearMethod}"
+					ajax="true" styleClass="filter-clear" immediate="false"
+					update="#{cc.attrs.updateOnClear}" process="@this" />
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</composite:implementation>
+</html>
